@@ -1,0 +1,12 @@
+.DS_Store
+thumbs.db
+node_modules
+.vagrant/
+.idea
+.tmp
+.env
+.next
+*.log
+*.sql
+cache/*
+.htaccess

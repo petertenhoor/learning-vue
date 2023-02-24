@@ -1,7 +1,0 @@
-.DS_Store
-.Vagrantfile.swp
-thumbs.db
-*.log
-.idea/
-.tmp/
-node_modules/

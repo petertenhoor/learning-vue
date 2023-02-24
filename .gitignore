@@ -5,6 +5,3 @@ thumbs.db
 .idea/
 .tmp/
 node_modules/
-
-# prevent distributes files from being committed
-/dist/

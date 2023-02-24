@@ -1,0 +1,33 @@
+name: Webpack build + merge to dist branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '19.2.0'
+
+      - name: Install npm packages + build webpack assets
+        run: node -v && npm install && npm run build
+
+      - name: Use different .gitignore file
+        run: mv .gitignore.dist .gitignore
+
+      - name: Merge dist folder to dist branch
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: dist
+          folder: .

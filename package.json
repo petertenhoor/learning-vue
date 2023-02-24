@@ -1,0 +1,47 @@
+{
+  "name": "pth-learning-vue",
+  "version": "1.0.0",
+  "description": "Trying to understand why developers choose Vue over React.",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack serve --config webpack.config.js --mode development --env development",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js --mode production --env production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petertenhoor/learning-vue.git"
+  },
+  "author": "Peter ten hoor <petertenhoor@happyhorizon.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petertenhoor/learning-vue/issues"
+  },
+  "homepage": "https://github.com/petertenhoor/learning-vue#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/plugin-transform-runtime": "^7.19.1",
+    "@babel/preset-env": "^7.20.2",
+    "@svgr/webpack": "^6.4.0",
+    "babel-loader": "^8.3.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "cssnano-preset-default": "^5.2.14",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss": "^8.4.21",
+    "postcss-loader": "^7.0.2",
+    "postcss-preset-env": "^8.0.1",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.2.7",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.19.4",
+    "vue": "^3.2.47"
+  }
+}

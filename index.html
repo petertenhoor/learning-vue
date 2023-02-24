@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning Vue.js - Peter ten Hoor</title>
+</head>
+<body>
+
+<div class="relative">
+    <div class="absolute inset-0 h-screen flex justify-center items-center">
+        <div id="app" class="max-w-md w-full">
+            <div class="w-full border p-6 rounded-lg shadow">
+                <h5 class="text-2xl font-extrabold mb-3">
+                    Count away
+                </h5>
+                <p class="mb-3">
+                    Count is: {{ count }}
+                </p>
+
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button"
+                            :disabled="count <= 0"
+                            @click="count--"
+                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
+
+                        Decrement
+                    </button>
+                    <button type="button"
+                            @click="count++"
+                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
+                        Increment
+                    </button>
+                    <button type="button"
+                            @click="setRandomValue()"
+                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
+                        Randomize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

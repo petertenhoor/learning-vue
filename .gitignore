@@ -1,12 +1,10 @@
 .DS_Store
+.Vagrantfile.swp
 thumbs.db
-node_modules
-.vagrant/
-.idea
-.tmp
-.env
-.next
 *.log
-*.sql
-cache/*
-.htaccess
+.idea/
+.tmp/
+node_modules/
+
+# prevent distributes files from being committed
+public/dist/

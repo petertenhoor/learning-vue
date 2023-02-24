@@ -10,39 +10,122 @@
 <body>
 
 <div class="relative">
-    <div class="absolute inset-0 h-screen flex justify-center items-center">
-        <div id="app" class="max-w-md w-full">
-            <div class="w-full border p-6 rounded-lg shadow">
-                <h5 class="text-2xl font-extrabold mb-3">
-                    Count away
-                </h5>
-                <p class="mb-3">
-                    Count is: {{ count }}
-                </p>
 
-                <div class="inline-flex rounded-md shadow-sm" role="group">
-                    <button type="button"
-                            :disabled="count <= 0"
-                            @click="count--"
-                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
+    <div class="absolute inset-0 h-screen flex justify-center items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3">
 
-                        Decrement
-                    </button>
+        <div id="app" v-cloak class="max-w-md w-full max-h-screen">
+
+            <div class="w-full shadow-lg bg-white rounded-md">
+
+                <header class="flex justify-between w-full py-3 px-3">
+
+                    <div class="flex flex-col">
+                        <h5 class="text-2xl font-extrabold">
+                            TodoBien
+                        </h5>
+                        <h6>
+                            <span class="opacity-50">A vue.js powered to do list application</span> 🚀
+                        </h6>
+                    </div>
+
+                    <div class="relative shrink-0 h-12 w-12 cursor-pointer hover:opacity-50">
+                        <svg class="w-6 h-6 absolute top-1/2 right-1/2 pointer-events-none -translate-y-1/2 translate-x-1/2"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke-width="1.5"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/>
+                        </svg>
+                        <select style="font-size: 0;"
+                                v-bind:value="filterState"
+                                v-on:change="handleFilterStateChange($event.currentTarget.value)"
+                                class="border border-gray-300 rounded-full h-12 w-12 focus:outline-none appearance-none">
+                            <option value="all">Show all tasks ({{ countAll }})</option>
+                            <option value="incomplete">Show open tasks ({{ countIncomplete }})</option>
+                            <option value="complete">Show completed tasks ({{ countCompleted }})</option>
+                        </select>
+                    </div>
+
+                </header>
+
+                <main class="w-full border-t">
+
+                    <p v-if="!itemsToShow.length && filterState === 'all'" class="py-4 px-3">
+                        Nothing here but opportunities ✨
+                    </p>
+
+                    <p v-if="!itemsToShow.length && filterState !== 'all'" class="py-4 px-3">
+                        No tasks found for this filter ✨
+                    </p>
+
+                    <ul v-if="itemsToShow.length > 0" class="overflow-y-auto max-h-80 ">
+                        <li class="flex gap-2 justify-between py-4 px-3 border-dashed border-b last:border-b-0"
+                            v-for="(item) in itemsToShow">
+
+                            <div class="flex items-center">
+
+                                <input :id="item.id"
+                                       v-model="item.finished"
+                                       v-on:change="handleUpdateItem(item, 'finished', $event.currentTarget.checked)"
+                                       type="checkbox"
+                                       class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"/>
+
+                                <label :for="item.id"
+                                       class="ml-2 font-medium text-gray-900">
+                                    {{ item.label }}
+                                </label>
+
+                            </div>
+
+                            <div class="flex shrink-0">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     fill="none"
+                                     @click="handleDeleteItem(item)"
+                                     viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor"
+                                     class="w-10 h-10 p-2 cursor-pointer hover:opacity-50">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+
+                                </svg>
+
+                            </div>
+
+                        </li>
+                    </ul>
+
+                </main>
+
+                <form class="w-full flex" @submit="handleAddItem">
+
+                    <input type="text"
+                           required
+                           v-model="inputValue"
+                           class="w-full p-3 border-t rounded-bl-md"
+                           placeholder="Enter task name..">
+
                     <button type="button"
-                            @click="count++"
-                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border-t border-b border-gray-900 hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
-                        Increment
+                            :disabled="!inputValue"
+                            @click="handleAddItem"
+                            class="rounded-br-md disabled:opacity-50 disabled:cursor-not-allowed shrink-0 text-white bg-blue-700 hover:bg-blue-800 border-none focus:outline-none font-medium text-md px-5 py-2.5 text-center">
+                        Add task
                     </button>
-                    <button type="button"
-                            @click="setRandomValue()"
-                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white">
-                        Randomize
-                    </button>
-                </div>
+
+                </form>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 </body>
+
 </html>
